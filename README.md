@@ -1,21 +1,24 @@
 # vkui-library
 
-## Project setup
+## Installation
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+npm install @urapywka/vkui
 ```
 
-### Compiles and minifies for production
+### Usage
 ```
-npm run build
-```
+import Vue from 'vue'
+...
 
-### Lints and fixes files
-```
-npm run lint
+import "@urapywka/vkui"
+import PortalVue from 'portal-vue'
+
+import '@urapywka/vkui-icons'
+import '@urapywka/vkui-icons/dist/vkui-icons.css'
+
+import connect from '@vkontakte/vkui-connect'
+
+Vue.use(PortalVue)
+...
+
 ```
