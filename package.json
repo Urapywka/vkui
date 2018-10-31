@@ -1,19 +1,32 @@
 {
-  "name": "vkui-library",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@urapywka/vkui",
+  "version": "0.1.14",
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build-bundle": "vue-cli-service build --target lib --name vkui ./src/components/index.js",
     "lint": "vue-cli-service lint"
   },
+  "css.extract": false,
+  "main": "./dist/vkui.common.js",
+  "files": [
+    "dist/*",
+    "src/*",
+    "public/*",
+    "*.json",
+    "*.js"
+  ],
   "dependencies": {
+    "@urapywka/vkui-icons": "^0.1.5",
+    "portal-vue": "^1.4.0-beta.1",
     "vue": "^2.5.17"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.1",
     "@vue/cli-plugin-eslint": "^3.0.1",
     "@vue/cli-service": "^3.0.1",
+    "postcss-loader": "^3.0.0",
     "vue-template-compiler": "^2.5.17"
   },
   "eslintConfig": {
@@ -28,11 +41,6 @@
     "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
     }
   },
   "browserslist": [
