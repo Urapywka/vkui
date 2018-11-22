@@ -2,7 +2,7 @@
   <div
     v-bind="$attrs"
     :class="classNames"
-    :style="{ position: state.position, top: state.top, paddingBottom }"
+    :style="{ position: state.position, top: (!state.top) ? null : state.top + 'px', paddingBottom: (!paddingBottom) ? null : paddingBottom + 'px' }"
   >
     <div class="FixedLayout__in"><slot></slot></div>
   </div>

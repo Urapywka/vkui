@@ -77,7 +77,7 @@ export default {
     }
   },
   created () {
-    console.log("panelCreated", this.$attrs.id)
+    // console.log("panelCreated", this.$attrs.id)
   }
 }
 </script>
