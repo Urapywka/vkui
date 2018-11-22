@@ -407,7 +407,7 @@ export default {
         });
 
         this.document.dispatchEvent(new this.window.CustomEvent(transitionEndEventName));
-        console.log("scrollTo---activePanel")
+        // console.log("scrollTo---activePanel")
         window.scrollTo(0, this.state.scrolls[this.state.activePanel]);
         this.onTransition && this.onTransition();
       }
@@ -436,10 +436,10 @@ export default {
           const nextPanelElement = this.pickPanel(this.state.nextPanel);
           const prevPanelElement = this.pickPanel(this.state.prevPanel);
 
-          console.log("scrollTop---pe-stateAnimated")
+          // console.log("scrollTop---pe-stateAnimated")
           prevPanelElement.scrollTop = scrolls[this.state.prevPanel];
           if (this.state.isBack) {
-            console.log("scrollTop---ne-stateAnimated")
+            // console.log("scrollTop---ne-stateAnimated")
             nextPanelElement.scrollTop = scrolls[this.state.nextPanel];
           }
           this.waitAnimationFinish(this.pickPanel(this.state.isBack ? this.state.prevPanel : this.state.nextPanel), this.transitionEndHandler);
@@ -457,7 +457,7 @@ export default {
           const nextPanelElement = this.pickPanel(this.state.swipeBackNextPanel);
           const prevPanelElement = this.pickPanel(this.state.swipeBackPrevPanel);
 
-          console.log("scrollTop---pne-stateSwipingBack")
+          // console.log("scrollTop---pne-stateSwipingBack")
           nextPanelElement.scrollTop = scrolls[this.state.swipeBackNextPanel];
           prevPanelElement.scrollTop = scrolls[this.state.swipeBackPrevPanel];
         }
@@ -473,7 +473,7 @@ export default {
         }
         // Если свайп назад отменился (когда пользователь недостаточно сильно свайпнул)
         if (oldVal === false && val === null) {
-          console.log("scrollTo---stateSwipingBackFinish")
+          // console.log("scrollTo---stateSwipingBackFinish")
           this.window.scrollTo(0, scrolls[this.state.activePanel]);
         }
       });
@@ -501,7 +501,7 @@ export default {
     },
 
     waitAnimationFinish (elem, eventHandler) {
-      // console.log("waitAnimationFinish")
+      // console.log("waitAnimationFinish", elem)
       if (transitionEvents.supported) {
         const eventName = transitionEvents.prefix ? transitionEvents.prefix + 'AnimationEnd' : 'animationend';
 
@@ -560,9 +560,11 @@ export default {
           isBack: undefined,
           scrolls: isBack ? removeObjectKeys(this.state.scrolls, [prevPanel]) : this.state.scrolls
         });
-        console.log("scrollTo---transitionEndHandler", isBack, this.window, activePanel, this.state.scrolls[activePanel])
-        isBack && this.window.scrollTo(0, this.state.scrolls[activePanel]);
-        this.onTransition && this.onTransition();
+        // console.log("scrollTo---transitionEndHandler", isBack, activePanel, this.state.scrolls[activePanel])
+        this.$nextTick(function(){
+          isBack && this.window.scrollTo(0, this.state.scrolls[activePanel]);
+          this.onTransition && this.onTransition();
+        })
       }
     },
 
@@ -604,7 +606,7 @@ export default {
             duration: 200,
             timing: n => Math.sqrt(n),
             draw: (val) => {
-              console.log("scrollTo---onScrollTopMethod")
+              // console.log("scrollTo---onScrollTopMethod")
               this.window.scrollTo(0, scrollTop - val * scrollTop);
             }
           });
