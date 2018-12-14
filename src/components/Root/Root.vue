@@ -106,6 +106,7 @@ export default {
       }
     },
     activeView: function(val, oldVal) {
+      // console.log("activeView")
       let pageYOffset = this.window.pageYOffset;
       const firstLayerId = this.$slots.default.filter(View => typeof View.data !== 'undefined').find(view => {
         return view.data.attrs.id === oldVal || view.data.attrs.id === val;
@@ -130,16 +131,17 @@ export default {
       });
     },
     stateTransition: function(val, oldVal) {
+      // console.log("stateTransition")
       this.$nextTick(function(){
         if (!oldVal && val) {
           const prevViewElement = this.document.getElementById(`view-${this.state.prevView}`);
           const nextViewElement = this.document.getElementById(`view-${this.state.nextView}`);
 
-          console.log("R_scrollTop---pv-stateTransition")
+          // console.log("R_scrollTop---pv-stateTransition")
           prevViewElement.querySelector('.View__panel').scrollTop = this.state.scrolls[this.state.prevView];
 
           if (this.state.isBack) {
-            console.log("R_scrollTop---nv-stateTransition")
+            // console.log("R_scrollTop---nv-stateTransition")
             nextViewElement.querySelector('.View__panel').scrollTop = this.state.scrolls[this.state.nextView];
           }
           this.waitAnimationFinish(this.state.isBack ? prevViewElement : nextViewElement, this.onAnimationEnd);
@@ -165,7 +167,7 @@ export default {
     },
 
     onAnimationEnd (e = { manual: true }) {
-      // console.log("onAnimationEnd")
+      // console.log("onAnimationEnd", e)
       if ([
         'root-android-animation-hide-back',
         'root-android-animation-show-forward',
@@ -180,11 +182,12 @@ export default {
           visibleViews: [this.state.nextView],
           transition: false,
           isBack: undefined
-        }, () => {
-          console.log("R_scrollTo---onAnimationEnd")
+        })
+        this.$nextTick(function(){
+          // console.log("R_scrollTo---onAnimationEnd")
           isBack ? this.window.scrollTo(0, this.state.scrolls[this.state.activeView]) : this.window.scrollTo(0, 0);
           this.onTransition && this.onTransition(this.state.isBack);
-        });
+        })
       }
     },
 

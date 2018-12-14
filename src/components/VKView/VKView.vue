@@ -483,6 +483,7 @@ export default {
     Touch,
   },
   created: function () {
+    // this.window.scrollTo(0, 0); // Добавил 25.11.2018, Не добавит ли побочный эффект?!
     this.setPanelBg(this.activePanel);
     this.state.visiblePanels = [this.activePanel];
     this.state.activePanel = this.activePanel;

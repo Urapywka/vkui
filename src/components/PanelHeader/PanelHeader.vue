@@ -11,9 +11,9 @@
     </portal>
     <portal :to="'header-title-' + panel" v-if="state.ready">
       <div :class="panelHeaderContentClassNames">
-        <span v-if="isPrimitive && !!$slots.children"><slot name="children"></slot></span>
-        <span v-else-if="isPrimitive"><slot></slot></span>
-        <slot v-else-if="!!$slots.children"><slot name="children"></slot></slot>
+        <slot name="children" v-if="isPrimitive && !!$slots.children"></slot>
+        <slot v-else-if="isPrimitive"></slot>
+        <slot name="children" v-else-if="!!$slots.children"></slot>
         <slot v-else></slot>
       </div>
     </portal>
