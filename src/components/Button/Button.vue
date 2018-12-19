@@ -1,10 +1,10 @@
 <template>
-  <Tappable :class="classNames" :stopPropagation="true" v-bind="$attrs" v-on="$listeners">
+  <component :is="componentName" :class="classNames" :stopPropagation="true" v-bind="$attrs" v-on="$listeners">
     <div class="Button__in">
       <div class="Button__before" v-if="!!$slots.before"><slot name="before"></slot></div>
       <div class="Button__content" v-if="!!$slots.default"><slot></slot></div>
     </div>
-  </Tappable>
+  </component>
 </template>
 
 <script>
@@ -16,7 +16,7 @@ const baseClassName = getClassName('Button');
 
 export default {
   data: () => ({
-    
+    componentName: 'Tappable',
   }),
   computed: {
     classNames () {
@@ -55,6 +55,14 @@ export default {
       required: false,
       default: false
     },
+    component: {
+      type: String,
+      required: false,
+      default: 'div'
+    },
+  },
+  created () {
+    this.componentName = this.component || 'Tappable';
   },
 }
 </script>
