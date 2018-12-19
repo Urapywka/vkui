@@ -58,11 +58,11 @@ export default {
     component: {
       type: String,
       required: false,
-      default: 'div'
+      default: 'Tappable'
     },
   },
   created () {
-    this.componentName = this.component || 'Tappable';
+    this.componentName = this.component;
   },
 }
 </script>
