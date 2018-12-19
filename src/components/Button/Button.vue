@@ -55,14 +55,14 @@ export default {
       required: false,
       default: false
     },
-    component: {
-      type: String,
+    simple: {
+      type: Boolean,
       required: false,
-      default: 'Tappable'
+      default: false
     },
   },
   created () {
-    this.componentName = this.component;
+    this.componentName = (this.simple) ? 'div' : 'Tappable';
   },
 }
 </script>
