@@ -33,6 +33,7 @@ import Progress from './Progress/Progress'
 import Radio from './Radio/Radio'
 import Root from './Root/Root'
 import ScreenSpinner from './ScreenSpinner/ScreenSpinner'
+import Search from './Search/Search'
 import Select from './Select/Select'
 import SelectMimicry from './SelectMimicry/SelectMimicry'
 import Slider from './Slider/Slider'
@@ -99,6 +100,7 @@ const Components = {
   Progress,
   Radio,
   ScreenSpinner,
+  Search,
   Select,
   SelectMimicry,
   Slider,

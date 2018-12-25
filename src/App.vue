@@ -16,6 +16,11 @@
         <PanelHeader>
           Panel 1 1 1
         </PanelHeader>
+
+        <Search v-model="search" theme="default">
+          <div slot="after">Пас</div>
+        </Search>
+
         <Group>
           <List>
             <Cell expandable @click="activePanel = 'panel112'">Panel 1 1 2</Cell>
@@ -109,6 +114,7 @@ import Link from './components/Link/Link'
 import Progress from './components/Progress/Progress'
 import Radio from './components/Radio/Radio'
 import ScreenSpinner from './components/ScreenSpinner/ScreenSpinner'
+import Search from './components/Search/Search'
 import Select from './components/Select/Select'
 import SelectMimicry from './components/SelectMimicry/SelectMimicry'
 import VKSwitch from './components/Switch/Switch'
@@ -137,6 +143,7 @@ export default {
     input: '',
     sex: undefined,
     slider: .5,
+    search: 'test',
   }),
   components: {
     Epic,
@@ -174,6 +181,7 @@ export default {
     Progress,
     Radio,
     ScreenSpinner,
+    Search,
     Select,
     SelectMimicry,
     VKSwitch,

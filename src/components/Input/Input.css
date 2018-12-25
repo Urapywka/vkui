@@ -84,3 +84,19 @@
     transform: scaleX(1);
     transition: transform .14s var(--android-easing);
     }
+
+.Input--s-error .Input__el {
+  color: var(--red);
+  border-color: var(--red);
+}
+.Input--s-error .Input__el::placeholder {
+  color: var(--red);
+  }
+
+.Input--s-verified .Input__el {
+  color: var(--green);
+  border-color: var(--green);
+}
+.Input--s-verified .Input__el::placeholder {
+  color: var(--green);
+  }

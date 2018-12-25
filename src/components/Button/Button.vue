@@ -69,4 +69,8 @@ export default {
 
 <style>
 @import './Button.css';
+.Button {
+  user-select: none;
+  -webkit-user-select: none;
+}
 </style>

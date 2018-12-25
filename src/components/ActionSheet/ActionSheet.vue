@@ -58,7 +58,9 @@ export default {
   created () {
     this.$slots.default.map((child, i) => {
       // onClick: this.onItemClick(Child.props.onClick, Child.props.autoclose)
-      this.$slots.default[i].componentOptions.listeners.click = this.onItemClickMethod(child.componentOptions.listeners.click, child.componentOptions.propsData.autoclose);
+      if(this.$slots.default[i].componentOptions) {
+        this.$slots.default[i].componentOptions.listeners.click = this.onItemClickMethod(child.componentOptions.listeners.click, child.componentOptions.propsData.autoclose);
+      }
     });
   },
   mounted() {
@@ -100,4 +102,9 @@ export default {
 
 <style>
 @import './ActionSheet.css';
+.ActionSheetItem {
+  display: block;
+  user-select: none;
+  -webkit-user-select: none;
+}
 </style>

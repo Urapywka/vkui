@@ -1,6 +1,6 @@
 {
   "name": "@urapywka/vkui",
-  "version": "0.1.25",
+  "version": "0.1.33",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
