@@ -132,8 +132,8 @@ export default {
     },
     stateTransition: function(val, oldVal) {
       // console.log("stateTransition")
-      this.$nextTick(function(){
-        if (!oldVal && val) {
+      if (!oldVal && val) {
+        this.$nextTick(function(){
           const prevViewElement = this.document.getElementById(`view-${this.state.prevView}`);
           const nextViewElement = this.document.getElementById(`view-${this.state.nextView}`);
 
@@ -144,9 +144,17 @@ export default {
             // console.log("R_scrollTop---nv-stateTransition")
             nextViewElement.querySelector('.View__panel').scrollTop = this.state.scrolls[this.state.nextView];
           }
+
+          // Добавил этот хак (05.01.2019), чтоб избавиться от мерцаний
+          if(this.state.isBack) { 
+            nextViewElement.style.position = 'relative' 
+          }
+          this.state.isBack && this.window.scrollTo(0, this.state.scrolls[this.state.nextView]);
+          //
+
           this.waitAnimationFinish(this.state.isBack ? prevViewElement : nextViewElement, this.onAnimationEnd);
-        }
-      })
+        })
+      }
     },
   },
   created () {
@@ -175,6 +183,7 @@ export default {
         'root-ios-animation-show-forward'
       ].indexOf(e.animationName) > -1 || e.manual) {
         const isBack = this.state.isBack;
+        const activeViewElement = this.document.getElementById(`view-${this.state.nextView}`);
         this.state = Object.assign({}, this.state, {
           activeView: this.state.nextView,
           prevView: null,
@@ -183,11 +192,16 @@ export default {
           transition: false,
           isBack: undefined
         })
-        this.$nextTick(function(){
+        // this.$nextTick(function(){
           // console.log("R_scrollTo---onAnimationEnd")
           isBack ? this.window.scrollTo(0, this.state.scrolls[this.state.activeView]) : this.window.scrollTo(0, 0);
+          // Добавил этот хак (05.01.2019), чтоб избавиться от мерцаний
+          if(isBack) { 
+            activeViewElement.style.position = null 
+          }
+          //
           this.onTransition && this.onTransition(this.state.isBack);
-        })
+        // })
       }
     },
 

@@ -29,7 +29,13 @@
         </Group>
         <Group>
           <List>
-            <Cell v-for="i in 20">{{ i }}</Cell>
+            <Cell v-for="i in 100">{{ i }}</Cell>
+          </List>
+        </Group>
+        <Group>
+          <List>
+            <Cell expandable @click="activePanel = 'panel112'">Panel 1 1 2</Cell>
+            <Cell expandable @click="activeView = 'view12'">View 1 2</Cell>
           </List>
         </Group>
       </Panel>

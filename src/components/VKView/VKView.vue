@@ -428,11 +428,11 @@ export default {
     },
     stateAnimated: function(val, oldVal) {
       const scrolls = this.state.scrolls;
+      // Начался переход
+      if (!oldVal && val) {
+        this.document.dispatchEvent(new this.window.CustomEvent(transitionStartEventName, { detail: { scrolls } }));
 
-      this.$nextTick(function() {
-        // Начался переход
-        if (!oldVal && val) {
-          this.document.dispatchEvent(new this.window.CustomEvent(transitionStartEventName, { detail: { scrolls } }));
+        this.$nextTick(function() {
           const nextPanelElement = this.pickPanel(this.state.nextPanel);
           const prevPanelElement = this.pickPanel(this.state.prevPanel);
 
@@ -440,11 +440,21 @@ export default {
           prevPanelElement.scrollTop = scrolls[this.state.prevPanel];
           if (this.state.isBack) {
             // console.log("scrollTop---ne-stateAnimated")
+            // TOTO
             nextPanelElement.scrollTop = scrolls[this.state.nextPanel];
           }
-          this.waitAnimationFinish(this.pickPanel(this.state.isBack ? this.state.prevPanel : this.state.nextPanel), this.transitionEndHandler);
-        }
-      });
+
+          // Добавил этот хак (05.01.2019), чтоб избавиться от мерцаний
+          if(this.state.isBack) { 
+            nextPanelElement.style.position = 'relative' 
+          }
+          this.state.isBack && this.window.scrollTo(0, scrolls[this.state.nextPanel]);
+          //
+
+          // this.waitAnimationFinish(this.pickPanel(this.state.isBack ? this.state.prevPanel : this.state.nextPanel), this.transitionEndHandler);
+          this.waitAnimationFinish(this.state.isBack ? prevPanelElement : nextPanelElement, this.transitionEndHandler);
+        })
+      } 
     },
     stateSwipingBack: function(val, oldVal) {
       const scrolls = this.state.scrolls;
@@ -502,10 +512,10 @@ export default {
     },
 
     waitAnimationFinish (elem, eventHandler) {
-      // console.log("waitAnimationFinish", elem)
+      // console.log("waitAnimationFinish")
       if (transitionEvents.supported) {
         const eventName = transitionEvents.prefix ? transitionEvents.prefix + 'AnimationEnd' : 'animationend';
-
+        // console.log("eventName: ", eventName)
         elem.removeEventListener(eventName, eventHandler);
         elem.addEventListener(eventName, eventHandler);
       } else {
@@ -535,11 +545,11 @@ export default {
       if (!elem) {
         console.warn(`Element #${id} not found`);
       }
-      return elem && elem.parentNode.parentNode; // TODO на что заменить?
+      return elem && elem.parentNode.parentNode;
     },
 
     transitionEndHandler (e = { manual: true }) {
-      // console.log("transitionEndHandler")
+      // console.log("transitionEndHandler",  transitionEndEventName)
       if ([
         'animation-ios-next-forward',
         'animation-ios-next-back',
@@ -549,8 +559,10 @@ export default {
         'animation-android-prev-back'
       ].indexOf(e.animationName) > -1 || e.manual) {
         const activePanel = this.activePanel;
+        const activePanelElement = this.pickPanel(activePanel);
         const isBack = this.state.isBack;
         const prevPanel = this.state.prevPanel;
+        const prevPanelElement = this.pickPanel(prevPanel);
         this.document.dispatchEvent(new this.window.CustomEvent(transitionEndEventName));
         this.state = Object.assign({}, this.state, {
           prevPanel: null,
@@ -561,11 +573,22 @@ export default {
           isBack: undefined,
           scrolls: isBack ? removeObjectKeys(this.state.scrolls, [prevPanel]) : this.state.scrolls
         });
-        // console.log("scrollTo---transitionEndHandler", isBack, activePanel, this.state.scrolls[activePanel])
-        this.$nextTick(function(){
+        // this.$forceUpdate();
+        // console.log("scrollTo---transitionEndHandler", isBack, activePanel, activePanelElement, this.state.scrolls[activePanel])
+        // if(isBack) {
+        //   activePanelElement.style.position = 'fixed'
+        //   activePanelElement.scrollTop = this.state.scrolls[activePanel];
+        // }
+        
+        // this.$nextTick(function(){
           isBack && this.window.scrollTo(0, this.state.scrolls[activePanel]);
+          // Добавил этот хак (05.01.2019), чтоб избавиться от мерцаний
+          if(isBack) { 
+            activePanelElement.style.position = null 
+          }
+          //
           this.onTransition && this.onTransition();
-        })
+        // })
       }
     },
 
