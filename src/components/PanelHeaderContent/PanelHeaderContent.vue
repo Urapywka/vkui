@@ -56,5 +56,6 @@ export default {
 </script>
 
 <style>
+@import '../../styles/common.css';
 @import './PanelHeaderContent.css'
 </style>

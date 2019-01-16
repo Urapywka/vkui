@@ -24,5 +24,6 @@ export default {
 </script>
 
 <style>
+@import '../../styles/common.css';
 @import './Link.css';
 </style>

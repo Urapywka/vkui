@@ -35,5 +35,6 @@ export default {
 </script>
 
 <style>
+@import '../../styles/common.css';
 @import './Tabs.css';
 </style>

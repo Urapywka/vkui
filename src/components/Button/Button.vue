@@ -68,9 +68,6 @@ export default {
 </script>
 
 <style>
+@import '../../styles/common.css';
 @import './Button.css';
-.Button {
-  user-select: none;
-  -webkit-user-select: none;
-}
 </style>

@@ -101,6 +101,7 @@ export default {
 </script>
 
 <style>
+@import '../../styles/common.css';
 @import './ActionSheet.css';
 .ActionSheetItem {
   display: block;

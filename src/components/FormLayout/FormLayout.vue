@@ -95,5 +95,6 @@ export default {
 </script>
 
 <style>
+@import '../../styles/common.css';
 @import './FormLayout.css';
 </style>

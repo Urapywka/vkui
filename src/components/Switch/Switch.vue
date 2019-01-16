@@ -30,5 +30,6 @@ export default {
 </script>
 
 <style>
+@import '../../styles/common.css';
 @import './Switch.css';
 </style>

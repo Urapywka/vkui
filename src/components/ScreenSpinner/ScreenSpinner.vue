@@ -28,5 +28,6 @@ export default {
 </script>
 
 <style>
+@import '../../styles/common.css';
 @import './ScreenSpinner.css';
 </style>

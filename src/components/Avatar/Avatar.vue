@@ -63,5 +63,6 @@ export default {
 </script>
 
 <style>
+@import '../../styles/common.css';
 @import './Avatar.css';
 </style>

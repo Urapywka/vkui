@@ -18,5 +18,6 @@ export default {
 </script>
 
 <style>
+@import '../../styles/common.css';
 @import './FormLayoutGroup.css';
 </style>

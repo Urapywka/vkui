@@ -44,5 +44,6 @@ export default {
 </script>
 
 <style>
+@import '../../styles/common.css';
 @import './CellButton.css';
 </style>

@@ -81,5 +81,6 @@ export default {
 </script>
 
 <style>
+@import '../../styles/common.css';
 @import './HeaderContext.css';
 </style>

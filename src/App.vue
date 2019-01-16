@@ -241,9 +241,9 @@ export default {
 
 <style>
 @import './styles/common.css';
-@import './styles/constants.css';
-@import './styles/generated/palette.css';
-@import './styles/generated/client_light.css';
+/*@import './styles/constants.css';*/
+/*@import './styles/generated/palette.css';*/
+/*@import './styles/generated/client_light.css';*/
 /*@import './styles/generated/client_dark.css';*/
 
 hr {

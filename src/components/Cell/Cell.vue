@@ -197,5 +197,6 @@ export default {
 </script>
 
 <style>
+@import '../../styles/common.css';
 @import './Cell.css';
 </style>

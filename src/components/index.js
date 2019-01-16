@@ -49,19 +49,6 @@ import Touch from './Touch/Touch'
 import VKView from './VKView/VKView'
 
 
-
-
-
-
-
-
-
-
-import '../styles/common.css';
-import '../styles/constants.css';
-import '../styles/generated/palette.css';
-import '../styles/generated/client_light.css';
-
 const Components = {
   Root,
   VKView,

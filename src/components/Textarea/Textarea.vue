@@ -92,5 +92,6 @@ export default {
 </script>
 
 <style>
+@import '../../styles/common.css';
 @import './Textarea.css';
 </style>

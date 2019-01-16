@@ -39,5 +39,6 @@ export default {
 </script>
 
 <style>
+@import '../../styles/common.css';
 @import './Spinner.css';
 </style>
