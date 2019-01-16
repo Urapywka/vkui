@@ -19,6 +19,7 @@
 .HeaderButton--ios {
   position: relative;
   display: flex;
+  align-items: center;
   height: 100%;
   }
 
@@ -51,6 +52,10 @@
 
   .HeaderButton--android .Icon--24 {
     padding: 12px 0;
+    }
+
+  .HeaderButton--android .Tappable__waves {
+    border-radius: 50%;
     }
 
 .HeaderButton--android.Tappable--active {

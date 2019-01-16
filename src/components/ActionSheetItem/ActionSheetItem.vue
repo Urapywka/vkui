@@ -1,8 +1,8 @@
 <template>
   <Tappable
-    v-bind="$attrs"
     :class="classNames"
-    :component="theme === 'cancel' ? 'span' : 'div'"
+    :component="componentName"
+    v-bind="$attrs"
     v-on="$listeners"
   >
     <span class="ActionSheetItem__in"><slot></slot></span>
@@ -17,6 +17,9 @@ import Tappable from '../Tappable/Tappable'
 const baseClassNames = getClassName('ActionSheetItem');
 
 export default {
+  data: () => ({
+    componentName: 'div',
+  }),
   props: {
     theme: {
       type: String,
@@ -34,6 +37,9 @@ export default {
   },
   components: {
     Tappable,
+  },
+  created () {
+    this.componentName = this.theme === 'cancel' ? 'span' : 'div';
   },
 }
 </script>

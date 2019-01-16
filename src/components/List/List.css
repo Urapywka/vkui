@@ -25,22 +25,33 @@
     }
 
   .List--ios::before {
-    top: 0;
+    bottom: 100%;
     background: var(--separator_common);
+    transform-origin: center bottom;
     }
 
   .List--ios::after {
-    bottom: 0;
+    top: 100%;
     background: var(--separator_common);
+    transform-origin: center top;
     }
 
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-  .List--ios::before {
-    background: linear-gradient(to bottom, var(--separator_common) 50%, transparent 50%);
+  .List--ios:empty::before,
+  .List--ios:empty::after {
+    content: none;
     }
 
+@media (min-resolution: 2dppx) {
+  .List--ios::before,
   .List--ios::after {
-    background: linear-gradient(to top, var(--separator_common) 50%, transparent 50%);
+    transform: scaleY(.5);
+    }
+  }
+
+@media (min-resolution: 3dppx) {
+  .List--ios::before,
+  .List--ios::after {
+    transform: scaleY(.33);
     }
   }
 

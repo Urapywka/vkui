@@ -1,6 +1,8 @@
 <template>
   <PopoutWrapper :class="classNames">
-    <Spinner v-bind="$attrs" />
+    <div class="ScreenSpinner__container">
+      <Spinner size="large" v-bind="$attrs" />
+    </div>
   </PopoutWrapper>
 </template>
 
@@ -24,3 +26,7 @@ export default {
   },
 }
 </script>
+
+<style>
+@import './ScreenSpinner.css';
+</style>

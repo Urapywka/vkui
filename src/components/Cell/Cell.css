@@ -117,7 +117,7 @@
       }
 
     .Cell__indicator + .Cell__aside:not(:empty) {
-      padding-left: .5em;
+      padding-left: 8px;
       }
 
       .Cell__dragger {
@@ -157,7 +157,7 @@
       flex-shrink: 0;
       }
 
-  .List--ios .Cell__chevron {
+  .Cell--ios .Cell__chevron {
     color: var(--icon_tertiary);
     }
 
@@ -172,7 +172,20 @@
       width: 10000px;
       height: 1px;
       background: var(--separator_common);
+      transform-origin: center center;
       content: '';
+      }
+
+    @media (min-resolution: 2dppx) {
+      .List .Cell--ios:not(:last-child) .Cell__in:not(.Tappable--active) .Cell__before::before {
+        transform: scaleY(.5);
+        }
+      }
+
+    @media (min-resolution: 3dppx) {
+      .List .Cell--ios:not(:last-child) .Cell__in:not(.Tappable--active) .Cell__before::before {
+        transform: scaleY(.33);
+        }
       }
 
     .List .Cell--ios.Cell--m .Cell__before::before {
@@ -239,17 +252,8 @@
           display: block;
           }
 
-    @media
-      (-webkit-min-device-pixel-ratio: 2),
-      (min-resolution: 192dpi),
-      (min-resolution: 2dppx) {
-      .List .Cell--ios:not(:last-child) .Cell__in:not(.Tappable--active) .Cell__before::before {
-        background: linear-gradient(to top, var(--separator_common) 50%, transparent 50%);
-        }
-      }
-
     .Cell--ios .Cell__main {
-      padding: 12px .5em 12px 0;
+      padding: 11px 8px 11px 0;
       }
 
       .Cell--ios .Cell__description:not(:empty) {
@@ -293,12 +297,12 @@
       }
 
     .Cell--android .Cell__main {
-      padding: 14px .5em 14px 0;
+      padding: 14px 8px 14px 0;
       line-height: 20px;
       }
 
     .Cell--android.Cell--l .Cell__main {
-      padding: 12px .5em 12px 0;
+      padding: 12px 8px 12px 0;
       }
 
       .Cell--android .Cell__description:not(:empty) {

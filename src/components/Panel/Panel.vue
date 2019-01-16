@@ -2,7 +2,7 @@
   <div :class="classNames" v-bind="$attrs">
     <div class="Panel__in" :style="panelInStyles">
       <div class="Panel__in-before"></div>
-        <slot></slot>
+      <slot></slot>
       <div class="Panel__in-after"></div>
     </div>
   </div>

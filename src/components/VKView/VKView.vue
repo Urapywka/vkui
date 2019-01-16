@@ -213,15 +213,7 @@ export default {
             return createElement(
               'div',
               {
-                class: classnames('View__panel', {
-                  'View__panel--active': panel.data.attrs.id === this.state.activePanel,
-                  'View__panel--prev': panel.data.attrs.id === this.state.prevPanel,
-                  'View__panel--next': panel.data.attrs.id === this.state.nextPanel,
-                  'View__panel--swipe-back-prev': panel.data.attrs.id === this.state.swipeBackPrevPanel,
-                  'View__panel--swipe-back-next': panel.data.attrs.id === this.state.swipeBackNextPanel,
-                  'View__panel--swipe-back-success': this.state.swipingBackFinish === true,
-                  'View__panel--swipe-back-failed': this.state.swipingBackFinish === false
-                }), 
+                class: this.calcPanelClassNames(panel.data.attrs.id), 
                 style: this.calcPanelSwipeStyles(panel.data.attrs.id),
                 key: panel.data.attrs.id
               },
@@ -427,34 +419,35 @@ export default {
       });
     },
     stateAnimated: function(val, oldVal) {
+      let self = this
       const scrolls = this.state.scrolls;
       // Начался переход
       if (!oldVal && val) {
-        this.document.dispatchEvent(new this.window.CustomEvent(transitionStartEventName, { detail: { scrolls } }));
-
+        
         this.$nextTick(function() {
-          const nextPanelElement = this.pickPanel(this.state.nextPanel);
-          const prevPanelElement = this.pickPanel(this.state.prevPanel);
+        // setTimeout(function() {
+          self.document.dispatchEvent(new self.window.CustomEvent(transitionStartEventName, { detail: { scrolls } }));
+          const nextPanelElement = self.pickPanel(self.state.nextPanel);
+          const prevPanelElement = self.pickPanel(self.state.prevPanel);
 
           // console.log("scrollTop---pe-stateAnimated")
-          prevPanelElement.scrollTop = scrolls[this.state.prevPanel];
-          if (this.state.isBack) {
+          prevPanelElement.scrollTop = scrolls[self.state.prevPanel];
+          if (self.state.isBack) {
             // console.log("scrollTop---ne-stateAnimated")
-            // TOTO
-            nextPanelElement.scrollTop = scrolls[this.state.nextPanel];
+            nextPanelElement.scrollTop = scrolls[self.state.nextPanel];
           }
 
           // Добавил этот хак (05.01.2019), чтоб избавиться от мерцаний
           if(this.state.isBack) { 
-            nextPanelElement.style.position = 'relative' 
+            nextPanelElement.style.position = 'relative'
+            document.getElementById("app").style.height = 'auto'
           }
           this.state.isBack && this.window.scrollTo(0, scrolls[this.state.nextPanel]);
           //
 
-          // this.waitAnimationFinish(this.pickPanel(this.state.isBack ? this.state.prevPanel : this.state.nextPanel), this.transitionEndHandler);
-          this.waitAnimationFinish(this.state.isBack ? prevPanelElement : nextPanelElement, this.transitionEndHandler);
+          self.waitAnimationFinish(self.state.isBack ? prevPanelElement : nextPanelElement, self.transitionEndHandler);
         })
-      } 
+      }
     },
     stateSwipingBack: function(val, oldVal) {
       const scrolls = this.state.scrolls;
@@ -493,7 +486,6 @@ export default {
     Touch,
   },
   created: function () {
-    // this.window.scrollTo(0, 0); // Добавил 25.11.2018, Не добавит ли побочный эффект?!
     this.setPanelBg(this.activePanel);
     this.state.visiblePanels = [this.activePanel];
     this.state.activePanel = this.activePanel;
@@ -549,6 +541,7 @@ export default {
     },
 
     transitionEndHandler (e = { manual: true }) {
+      let self = this
       // console.log("transitionEndHandler",  transitionEndEventName)
       if ([
         'animation-ios-next-forward',
@@ -558,37 +551,37 @@ export default {
         'animation-android-next-forward',
         'animation-android-prev-back'
       ].indexOf(e.animationName) > -1 || e.manual) {
-        const activePanel = this.activePanel;
-        const activePanelElement = this.pickPanel(activePanel);
-        const isBack = this.state.isBack;
-        const prevPanel = this.state.prevPanel;
-        const prevPanelElement = this.pickPanel(prevPanel);
-        this.document.dispatchEvent(new this.window.CustomEvent(transitionEndEventName));
-        this.state = Object.assign({}, this.state, {
+        const activePanel = self.activePanel;
+        const activePanelElement = self.pickPanel(activePanel);
+        const isBack = self.state.isBack;
+        const prevPanel = self.state.prevPanel;
+        // const prevPanelElement = this.pickPanel(prevPanel);
+        self.document.dispatchEvent(new self.window.CustomEvent(transitionEndEventName));
+        self.state = Object.assign({}, self.state, {
           prevPanel: null,
           nextPanel: null,
           visiblePanels: [activePanel],
           activePanel: activePanel,
           animated: false,
           isBack: undefined,
-          scrolls: isBack ? removeObjectKeys(this.state.scrolls, [prevPanel]) : this.state.scrolls
+          scrolls: isBack ? removeObjectKeys(self.state.scrolls, [prevPanel]) : self.state.scrolls
         });
         // this.$forceUpdate();
         // console.log("scrollTo---transitionEndHandler", isBack, activePanel, activePanelElement, this.state.scrolls[activePanel])
         // if(isBack) {
-        //   activePanelElement.style.position = 'fixed'
-        //   activePanelElement.scrollTop = this.state.scrolls[activePanel];
+          // activePanelElement.style.position = 'relative'
+          // this.window.scrollTo(0, this.state.scrolls[activePanel]);
+          // activePanelElement.scrollTop = this.state.scrolls[activePanel];
         // }
-        
-        // this.$nextTick(function(){
-          isBack && this.window.scrollTo(0, this.state.scrolls[activePanel]);
-          // Добавил этот хак (05.01.2019), чтоб избавиться от мерцаний
-          if(isBack) { 
-            activePanelElement.style.position = null 
-          }
-          //
-          this.onTransition && this.onTransition();
-        // })
+
+        isBack && self.window.scrollTo(0, self.state.scrolls[activePanel]);
+        // Добавил этот хак (05.01.2019), чтоб избавиться от мерцаний
+        if(isBack) { 
+          activePanelElement.style.position = null 
+          document.getElementById("app").style.height = null
+        }
+      
+        this.onTransition && this.onTransition({ isBack, from: prevPanel, to: activePanel });
       }
     },
 
@@ -702,6 +695,17 @@ export default {
       }
     },
 
+    calcPanelClassNames (panelId) {
+      return classnames('View__panel', {
+        'View__panel--active': panelId === this.state.activePanel,
+        'View__panel--prev': panelId === this.state.prevPanel,
+        'View__panel--next': panelId === this.state.nextPanel,
+        'View__panel--swipe-back-prev': panelId === this.state.swipeBackPrevPanel,
+        'View__panel--swipe-back-next': panelId === this.state.swipeBackNextPanel,
+        'View__panel--swipe-back-success': this.state.swipingBackFinish === true,
+        'View__panel--swipe-back-failed': this.state.swipingBackFinish === false
+      })
+    },
     calcPanelSwipeStyles (panelId) {
       // console.log("calcPanelSwipeStyles")
       const isPrev = panelId === this.state.swipeBackPrevPanel;

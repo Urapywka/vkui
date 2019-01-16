@@ -17,8 +17,8 @@
         <slot v-else></slot>
       </div>
     </portal>
-    <portal :to="'header-right-' + panel" v-if="state.ready && webviewType === 'internal'">
-      <div :class="panelHeaderRightClassNames"><slot name="right"></slot></div>
+    <portal :to="'header-right-' + panel" v-if="state.ready">
+      <div :class="panelHeaderRightClassNames"><slot name="right" v-if="webviewType === 'internal'"></slot></div>
     </portal>
   </div>
 </template>

@@ -78,15 +78,15 @@
 .PanelHeader--ios {
   height: 44px;
   padding-top: 20px;
-  /*padding-top: constant(safe-area-inset-top);*/
-  /*padding-top: env(safe-area-inset-top);*/
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
   }
 
   .PanelHeader--ios .PanelHeader__in {
     height: 44px;
     padding-top: 20px;
-    /*padding-top: constant(safe-area-inset-top);*/
-    /*padding-top: env(safe-area-inset-top);*/
+    padding-top: constant(safe-area-inset-top);
+    padding-top: env(safe-area-inset-top);
     }
 
     .PanelHeader--ios .PanelHeader__container {
@@ -100,23 +100,30 @@
         .PanelHeader--ios .PanelHeader-bg {
           height: 44px;
           padding-top: 20px;
-          /*padding-top: constant(safe-area-inset-top);*/
-          /*padding-top: env(safe-area-inset-top);*/
+          padding-top: constant(safe-area-inset-top);
+          padding-top: env(safe-area-inset-top);
           }
 
         .PanelHeader--ios .PanelHeader-bg::after {
           position: absolute;
-          bottom: 0;
+          top: 100%;
           left: 0;
           width: 100%;
           height: 1px;
           background: var(--separator_common);
+          transform-origin: center top;
           content: '';
           }
 
-        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+        @media (min-resolution: 2dppx) {
           .PanelHeader--ios .PanelHeader-bg::after {
-            background: linear-gradient(to top, var(--separator_common) 50%, transparent 50%);
+            transform: scaleY(.5);
+            }
+          }
+
+        @media (min-resolution: 3dppx) {
+          .PanelHeader--ios .PanelHeader-bg::after {
+            transform: scaleY(.33);
             }
           }
 
@@ -227,7 +234,7 @@
       .PanelHeader--android .PanelHeader__content {
         max-width: 100%;
         flex-grow: 2;
-        height: 100%;
+        height: 56px;
         }
 
       .PanelHeader--android .PanelHeader-left-in {
@@ -253,12 +260,14 @@
         .PanelHeader--android .PanelHeader-content {
           font-size: 20px;
           line-height: 56px;
-          height: 100%;
+          height: 56px;
           font-weight: 500;
           }
 
         .PanelHeader--android .PanelHeader-content > *:not(.Search):not(.PanelHeaderContent) {
           padding: 0 6px;
+          height: 56px;
+          line-height: 56px;
           }
 
           .PanelHeader--android .Search {
@@ -266,32 +275,26 @@
             width: 100%;
             left: 0;
             top: 0;
-            z-index: 2;
+            z-index: 3;
             }
 
 /*
   Темы
  */
-.PanelHeader-bg--brand {
-  background: var(--header_background);
-  }
-
 .PanelHeader-content--brand,
 .PanelHeader-left-in--brand,
 .PanelHeader-addon--brand,
-.PanelHeader-right--brand {
+.PanelHeader-right--brand,
+.PanelHeader-bg--brand {
   color: var(--header_text);
   background: var(--header_background);
   }
 
-.PanelHeader-bg--light, /*TODO deprecated. Alias for alternate. Remove in 3.0.0*/
-.PanelHeader-bg--alternate {
-  background: var(--header_alternate_background);
-  }
-
-.PanelHeader-left-in--light, /*TODO deprecated. Alias for alternate. Remove in 3.0.0*/
-.PanelHeader-addon--light, /*TODO deprecated. Alias for alternate. Remove in 3.0.0*/
-.PanelHeader-right--light, /*TODO deprecated. Alias for alternate. Remove in 3.0.0*/
+.PanelHeader-bg--light, /*TODO deprecated. Алиас для alternate. Будет удален в 3.0.0*/
+.PanelHeader-bg--alternate,
+.PanelHeader-left-in--light, /*TODO deprecated. Алиас для alternate. Будет удален в 3.0.0*/
+.PanelHeader-addon--light, /*TODO deprecated. Алиас для alternate. Будет удален в 3.0.0*/
+.PanelHeader-right--light, /*TODO deprecated. Алиас для alternate. Будет удален в 3.0.0*/
 .PanelHeader-left-in--alternate,
 .PanelHeader-addon--alternate,
 .PanelHeader-right--alternate {
@@ -299,7 +302,19 @@
   background: var(--header_alternate_background);
   }
 
-.PanelHeader-content--light, /*TODO deprecated. Alias for alternate. Remove in 3.0.0*/
+.PanelHeader-content--light, /*TODO deprecated. Алиас для alternate. Будет удален в 3.0.0*/
 .PanelHeader-content--alternate {
   color: var(--text_primary);
+  }
+
+/*
+  Прозрачность
+ */
+
+.PanelHeader-left-in--tp,
+.PanelHeader-addon--tp,
+.PanelHeader-right--tp,
+.PanelHeader-bg--tp,
+.PanelHeader-content--tp {
+  background: transparent;
   }

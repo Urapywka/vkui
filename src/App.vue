@@ -12,16 +12,45 @@
   </Tabbar>
   <Root id="root1" :activeView="activeView" key="root1">
     <VKView id="view11" :activePanel="activePanel" key="view11">
+      <Alert v-if="false"
+            :actions="[{
+              title: 'Cancel',
+              autoclose: true,
+              style: 'cancel'
+            }]"
+            slot="popout"
+            :onClose="() => { test() }"
+          >
+            <div>
+              <span style="width: 24px; display: inline-block;"><vkui-icon name="done" size="24" /></span>
+            </div>
+            <h2>Hi!</h2>
+            <p>I am alert</p>
+          </Alert>
+      <ActionSheet v-if="false"
+        slot="popout"
+        :onClose='function(){ test() }'>
+        <div slot="title">Test</div>
+        <ActionSheetItem @click="test" :autoclose="true">Это кнопка 1</ActionSheetItem>
+        <ActionSheetItem @click="test" theme="destructive" :autoclose="true">Это кнопка 2</ActionSheetItem>
+        <ActionSheetItem @click="test" href="/" target="_blank" :autoclose="true">Это ссылка (не работает)</ActionSheetItem>
+        <ActionSheetItem @click='test' :autoclose="true" theme="cancel">Отмена</ActionSheetItem>
+      </ActionSheet>
       <Panel id="panel111">
         <PanelHeader>
           Panel 1 1 1
         </PanelHeader>
 
-        <Search v-model="search" theme="default">
-          <div slot="after">Пас</div>
-        </Search>
+        <FixedLayout>
+          <Search v-model="search" theme="content" placeholder="Поиск">
+            <div slot="after">Пас</div>
+          </Search>
+        </FixedLayout>
 
-        <Group>
+        <Spinner size="regular" style="margin-top: 80px;" />
+
+        <Group style="margin-top: 40px;">
+
           <List>
             <Cell expandable @click="activePanel = 'panel112'">Panel 1 1 2</Cell>
             <Cell expandable @click="activeView = 'view12'">View 1 2</Cell>
@@ -119,6 +148,7 @@ import Input from './components/Input/Input'
 import Link from './components/Link/Link'
 import Progress from './components/Progress/Progress'
 import Radio from './components/Radio/Radio'
+import Spinner from './components/Spinner/Spinner'
 import ScreenSpinner from './components/ScreenSpinner/ScreenSpinner'
 import Search from './components/Search/Search'
 import Select from './components/Select/Select'
@@ -186,6 +216,7 @@ export default {
     Link,
     Progress,
     Radio,
+    Spinner,
     ScreenSpinner,
     Search,
     Select,
@@ -220,4 +251,5 @@ hr {
   border-bottom: 2px dashed #eee;
   margin: 40px 0;
 }
+
 </style>

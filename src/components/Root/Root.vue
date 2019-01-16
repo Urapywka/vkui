@@ -148,6 +148,7 @@ export default {
           // Добавил этот хак (05.01.2019), чтоб избавиться от мерцаний
           if(this.state.isBack) { 
             nextViewElement.style.position = 'relative' 
+            document.getElementById("app").style.height = 'auto'
           }
           this.state.isBack && this.window.scrollTo(0, this.state.scrolls[this.state.nextView]);
           //
@@ -183,12 +184,14 @@ export default {
         'root-ios-animation-show-forward'
       ].indexOf(e.animationName) > -1 || e.manual) {
         const isBack = this.state.isBack;
-        const activeViewElement = this.document.getElementById(`view-${this.state.nextView}`);
+        const prevView = this.state.prevView;
+        const nextView = this.state.nextView;
+        const activeViewElement = this.document.getElementById(`view-${nextView}`);
         this.state = Object.assign({}, this.state, {
-          activeView: this.state.nextView,
+          activeView: nextView,
           prevView: null,
           nextView: null,
-          visibleViews: [this.state.nextView],
+          visibleViews: [nextView],
           transition: false,
           isBack: undefined
         })
@@ -198,9 +201,10 @@ export default {
           // Добавил этот хак (05.01.2019), чтоб избавиться от мерцаний
           if(isBack) { 
             activeViewElement.style.position = null 
+            document.getElementById("app").style.height = null
           }
           //
-          this.onTransition && this.onTransition(this.state.isBack);
+          this.onTransition && this.onTransition({ isBack, from: prevView, to: nextView });
         // })
       }
     },

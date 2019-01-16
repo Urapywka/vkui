@@ -10,23 +10,30 @@
   justify-content: center;
   box-sizing: content-box;
   background: var(--header_alternate_background);
-  /*padding-bottom: constant(safe-area-inset-bottom);*/
-  /*padding-bottom: env(safe-area-inset-bottom);*/
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
   }
 
-.Tabbar--ios.Tabbar--shadow::after {
+.Tabbar--ios.Tabbar--shadow::before {
   position: absolute;
-  top: 0;
+  bottom: 100%;
   left: 0;
   width: 100%;
   height: 1px;
   background: var(--separator_common);
+  transform-origin: center bottom;
   content: '';
   }
 
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-  .Tabbar--ios::after {
-    background: linear-gradient(to bottom, var(--separator_common) 50%, transparent 50%);
+@media (min-resolution: 2dppx) {
+  .Tabbar--ios::before {
+    transform: scaleY(.5);
+    }
+  }
+
+@media (min-resolution: 3dppx) {
+  .Tabbar--ios::before {
+    transform: scaleY(.33);
     }
   }
 

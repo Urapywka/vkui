@@ -4,22 +4,19 @@
       v-bind="$attrs"
       class="Input__el"
       ref="input"
-      :placeholder="customPlaceholder ? null : placeholder"
+      :placeholder="placeholder"
       :value="value"
       @input="changeHandler"
       @focus="focusHandler"
     />
-    <div class="Input-underline" v-if="isANDROID"></div>
-    <div class="Input__placeholder" v-if="customPlaceholder && !value">{{ placeholder }}</div>
+    <div class="Input__border" />
   </div>
 </template>
 
 <script>
 import getClassName from '../../helpers/getClassName';
 import classnames from '../../lib/classnames'
-import {platform, ANDROID} from '../../lib/platform';
 
-const osname = platform();
 const baseClassName = getClassName('Input');
 
 export default {
@@ -33,20 +30,12 @@ export default {
     }
   },
   computed: {
-    isANDROID () {
-      return osname === ANDROID
-    },
     classNames () {
       const modifiers = {
-        'Input--left': this.alignment === 'left',
-        'Input--center': this.alignment === 'center',
-        'Input--right': this.alignment === 'right',
-        [`Input--s-${this.status}`]: true
+        [`Input--${this.alignment}`]: this.alignment,
+        [`Input--s-${this.status}`]: this.status
       };
       return classnames(baseClassName, modifiers)
-    },
-    customPlaceholder () {
-      return ['date', 'datetime-local', 'time', 'month'].indexOf(this.type) > -1 && this.isWebView ? this.placeholder : null;
     }
   },
   props: {
@@ -57,11 +46,11 @@ export default {
       type: String,
       required: false,
       default: 'text',
-      validator: (v) => [
-        'text', 'password',
-        'date', 'datetime-local', 'time', 'month',
-        'email', 'number', 'tel', 'url'
-      ].indexOf(v) >= 0
+      // validator: (v) => [
+      //   'text', 'password',
+      //   'date', 'datetime-local', 'time', 'month',
+      //   'email', 'number', 'tel', 'url'
+      // ].indexOf(v) >= 0
     },
     alignment: {
       type: String,
