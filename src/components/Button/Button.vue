@@ -70,4 +70,7 @@ export default {
 <style>
 @import '../../styles/common.css';
 @import './Button.css';
+.Button {
+  user-select: none;
+}
 </style>
