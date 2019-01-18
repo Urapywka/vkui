@@ -82,4 +82,20 @@ export default {
 <style>
 @import '../../styles/common.css';
 @import './Input.css';
+
+.Input--s-error .Input__border {
+  border-color: var(--red_error);
+}
+
+.Input--s-verified .Input__border {
+  border-color: var(--green);
+}
+
+.Input--s-error .Input__el {
+  color: var(--red_error);
+}
+
+.Input--s-verified .Input__el {
+  color: var(--green);
+}
 </style>
