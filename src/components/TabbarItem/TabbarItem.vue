@@ -1,8 +1,11 @@
 <template>
   <div v-bind="$attrs" v-on="$listeners" :class="classNames">
     <div class="TabbarItem__in">
-      <slot></slot>
-      <span v-if="label" class="TabbarItem__label">{{ label }}</span>
+       <div class="TabbarItem__icon">
+        <slot></slot>
+        <span v-if="label" class="TabbarItem__label">{{ label }}</span>
+      </div>
+      <div class="TabbarItem__text">{{ text }}</div>
     </div>
   </div>
 </template>
@@ -23,6 +26,9 @@ export default {
   },
   props: {
     label: {
+      type: String,
+    },
+    text: {
       type: String,
     },
     selected: {
