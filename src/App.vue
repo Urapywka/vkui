@@ -3,10 +3,10 @@
 
 <Epic :activeStory="activeStory">
   <Tabbar slot="tabbar">
-    <TabbarItem @click="activeStory = 'root1'" :selected="activeStory == 'root1'" label="1">
+    <TabbarItem @click="activeStory = 'root1'" :selected="activeStory == 'root1'" text="Лента" label="1">
       <vkui-icon name="market_outline" size="24" />
     </TabbarItem>
-    <TabbarItem @click="activeStory = 'root2'" :selected="activeStory == 'root2'">
+    <TabbarItem @click="activeStory = 'root2'" :selected="activeStory == 'root2'" text="Профиль">
       <vkui-icon name="user_outline" size="24" />
     </TabbarItem>
   </Tabbar>

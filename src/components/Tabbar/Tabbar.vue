@@ -19,10 +19,22 @@ export default {
   },
   computed: {
     classNames () {
-      return classnames(baseClassName, {
+      return classnames(
+        baseClassName,
+        `Tabbar--l-${this.typeItemLayout}`, {
         'Tabbar--shadow': this.shadow
       })
     },
+
+    typeItemLayout() {
+      switch (this.itemsLayout) {
+        case 'horizontal':
+        case 'vertical':
+          return this.itemsLayout;
+        default:
+          return this.$slots.default.length > 2 ? 'vertical' : 'horizontal';
+      }
+    }
   },
   props: {
     /**
@@ -33,6 +45,12 @@ export default {
       required: false,
       default: true
     },
+
+    itemsLayout: {
+      validator: (value) => {
+        return ['vertical', 'horizontal', 'auto'].indexOf(value) !== -1;
+      }
+    }
   },
 }
 </script>
